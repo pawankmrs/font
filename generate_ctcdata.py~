@@ -1,0 +1,9 @@
+from collections import Counter
+fc = Counter()
+f = [line.strip() for line in open('1March06-valid.font')]
+u = [line.strip() for line in open('1March06-valid.uni')]
+
+
+with open('test.txt','w') as src:
+  for i,l in enumerate(f):
+      src.write(f[i]+'\t'+u[i]+'\n')

@@ -1,0 +1,32 @@
+from collections import Counter
+fc = Counter()
+f = [line.strip() for line in open('1March06.font.sep.txt')]
+u = [line.strip() for line in open('1March06.uni.txt')]
+fc = Counter(list(' '.join(f)))
+uc = Counter(list(' '.join(u)))
+print(fc.keys())
+print(len(fc.keys()))
+print(uc.keys())
+print(len(uc.keys()))
+
+with open('countFont.txt', 'w') as fontc:
+  for k,c in fc.most_common():
+    fontc.write(str.format("%s  %d\n" %(k, c)))
+with open('countUnicode.txt', 'w') as unic:
+  for k,c in uc.most_common():
+    unic.write(str.format("%s  %d\n" %(k, c)))
+
+print(1.0*(len(' '.join(f))/len(' '.join(u))))
+
+with open('src.txt','w') as src, open('targ.txt', 'w') as targ:
+  for i,l in enumerate(f):
+    if len(f[i].split(" <sep> ")) == len(u[i].split(" ")):
+      src.write('\n'.join(f[i].split(" <sep> "))+'\n')
+      targ.write('\n'.join(u[i].split(" "))+'\n')
+      
+    '''else:
+      print("mismatch at line: " + str(i))
+      print(len(f[i].split("\t")))
+      #print(f[i])
+      #print(u[i])
+      print(len(u[i].split(" ")))'''
