@@ -2,9 +2,10 @@ from collections import Counter
 from itertools import izip
 
 
+
 fc = Counter()
-f = [line.strip() for line in open('1March06-1-22.pdf.font.txt')]
-u = [line.strip() for line in open('1March06-1-22.pdf.txt')]
+f = [line.strip() for line in open('/home/pawan/OCR/debate/text/SummaryReport2013Hindi.pdf.font')]
+u = [line.strip() for line in open('/home/pawan/OCR/debate/text/SummaryReport2013Hindi.pdf.uni')]
 len_ratio = float(len(' '.join(u))) / len(' '.join(f)) 
 epsilon = 4
 
@@ -81,7 +82,7 @@ def align(a, b):
 for s, t in izip(f, u):
   align(s, t)
 
-with open('1March.font','w') as src, open('1March.uni','w') as targ:
+with open('SummaryReport2013Hindi.font','w') as src, open('SummaryReport2013Hindi.uni','w') as targ:
   for i,_ in enumerate(f):
     if len(f[i]) > len_ratio * len(u[i]) + epsilon:
       

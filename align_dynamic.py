@@ -5,8 +5,8 @@ import numpy as np
 
 
 fc = Counter()
-f = [line.strip() for line in open('1March06-1-22.pdf.font.txt')]
-u = [line.strip() for line in open('1March06-1-22.pdf.txt')]
+f = [line.strip() for line in open('/home/pawan/OCR/debate/text/SummaryReport2013Hindi.pdf.font')]
+u = [line.strip() for line in open('/home/pawan/OCR/debate/text/SummaryReport2013Hindi.pdf.uni')]
 len_ratio = float(len(' '.join(u))) / len(' '.join(f)) 
 epsilon = 4
 
@@ -22,7 +22,7 @@ def fontlen(f):
   return len(f)
 
 def sigma(f, u):
-  return (fontlen(f) - unilen(u)) * (fontlen(f) - unilen(u))
+  return ((fontlen(f) - unilen(u)) * (fontlen(f) - unilen(u)))
 
 def path(a, b):
   M = len(a)
@@ -57,13 +57,19 @@ def path(a, b):
   for i in range(1, M+1):
     #for j in range(1, N+1):
     print("%s %s" %(previous[i][:][0], previous[i][:][1]))
+  endf = len(a)
+  endu = len(b)
   while pre != (0,0):
     print(pre)
+    print(a[int(pre[0]):endf])
+    print(b[int(pre[1]):endu])
+    endf = int(pre[0])
+    endu = int(pre[1])
     pre = (previous[int(pre[0])][int(pre[1])][0], previous[int(pre[0])][int(pre[1])][1])
 
 
-a = 'ÁÖß ˆ ̄ÖÃÖ3ÖÖ ̄Ö×ŸÖ : Ûéú ̄ÖμÖÖ ‡®ÖÛêú †®Öã ̄Öæ ̧üÛú  ̄ÖÏ¿®Ö ÛúÖ ˆ¢Ö ̧ü ¤üß×•Ö‹...'
-b = 'श्री उपसभाषति : देखिए।...(व्यवधान)...कुछ भी अभिलिखित नहीं होगा। यह नहीं'
+a = 'bÉBÉEPÉ® +ÉÉ ́ÉiÉÉÒÇ VÉàÉÉ, bÉBÉEPÉ® àÉÉÉÊoÉBÉE +ÉÉaÉ JÉÉiÉÉ,  ́ÉÉÊ®K~ xÉÉMÉÉÊ®BÉE ¤ÉSÉiÉ aÉÉäVÉxÉÉ, ®ÉK]ÅÉ a Ò É ¤ÉSÉiÉ |ÉàÉÉhÉ {ÉjÉ (8 ́ÉÉÆ-ÉÊxÉMÉÇàÉ), ®ÉK]ÅÉÒaÉ'
+b = 'डाकघर आवर्ती जमा, डाकघर मासिक आय खाता, वरिष्ठ नागरिक बचत योजना, राष्ट्रीय प्रमाण पत्र (8वां-निर्गम), राष्ट्रीय'
 path(a.split(),b.split())
 
 
