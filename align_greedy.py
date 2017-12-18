@@ -1,0 +1,53 @@
+from collections import Counter
+
+from numpy import argmax
+import numpy as np
+
+
+fc = Counter()
+f = [line.strip() for line in open('SummaryReport2013Hindi.pdf.font')]
+u = [line.strip() for line in open('SummaryReport2013Hindi.pdf.uni')]
+len_ratio = float(len(' '.join(f))/len(' '.join(u))) 
+epsilon = 1
+
+def unilen(u):
+  if u.isdigit():
+    return len(u)
+  else:
+    return len_ratio * len(u)
+
+def fontlen(f):
+  return len(f)
+
+a = 'bÉBÉEPÉ® +ÉÉ ́ÉiÉÉÒÇ VÉàÉÉ, bÉBÉEPÉ® àÉÉÉÊoÉBÉE +ÉÉaÉ JÉÉiÉÉ,  ́ÉÉÊ®K~ xÉÉMÉÉÊ®BÉE ¤ÉSÉiÉ aÉÉäVÉxÉÉ, ®ÉK]ÅÉ a Ò É ¤ÉSÉiÉ |ÉàÉÉhÉ {ÉjÉ (8 ́ÉÉÆ-ÉÊxÉMÉÇàÉ), ®ÉK]ÅÉÒaÉ'
+b = 'डाकघर आवर्ती जमा, डाकघर मासिक आय खाता, वरिष्ठ नागरिक बचत योजना, राष्ट्रीय प्रमाण पत्र (8वां-निर्गम), राष्ट्रीय'
+
+print(len_ratio)
+
+f = a.split()
+u = b.split()
+
+black_u = 0
+grey_u = 1
+black_f = 0
+grey_f = 1
+
+
+while black_u+grey_u+1 < len(u) and black_f+grey_f+1 < len(f):
+	if unilen(''.join(u[black_u:black_u+grey_u])) > fontlen(''.join(f[black_f:black_f+grey_f])):
+		print('larger UNI')
+		while(abs(unilen(''.join(u[black_u:black_u+grey_u+1])) - fontlen(''.join(f[black_f:black_f+grey_f]))) <  abs(unilen(''.join(u[black_u:black_u+grey_u])) - fontlen(''.join(f[black_f:black_f+grey_f])))):
+			grey_u += 1
+	elif unilen(''.join(u[black_u:black_u+grey_u])) < fontlen(''.join(f[black_f:black_f+grey_f])):
+		print('larger FONT')
+		while(abs(unilen(''.join(u[black_u:black_u+grey_u])) - fontlen(''.join(f[black_f:black_f+grey_f+1]))) <  abs(unilen(''.join(u[black_u:black_u+grey_u])) - fontlen(''.join(f[black_f:black_f+grey_f])))):
+			grey_f += 1
+			
+	print(''.join(f[black_f:black_f+grey_f]))
+	print(''.join(u[black_u:black_u+grey_u]))
+	black_u += grey_u
+	black_f += grey_f
+	grey_u = 1
+	grey_f = 1
+	
+
